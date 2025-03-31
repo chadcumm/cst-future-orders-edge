@@ -9,7 +9,7 @@ import { ButtonModule } from 'primeng/button';
   templateUrl: './app.component.html',
   styleUrls: ['../theme.scss', '../styles.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  //encapsulation: ViewEncapsulation.ShadowDom
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class AppComponent implements OnInit {
 
