@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "mpage-component-template": {
+    "cst-future-orders-edge": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/mpage-component-template",
+            "outputPath": "dist/cst-future-orders-edge",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -72,15 +72,15 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mpage-component-template:build",
+            "browserTarget": "cst-future-orders-edge:build",
             "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "mpage-component-template:build:production"
+              "browserTarget": "cst-future-orders-edge:build:production"
             },
             "development": {
-              "browserTarget": "mpage-component-template:build:development"
+              "browserTarget": "cst-future-orders-edge:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,7 +88,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mpage-component-template:build"
+            "browserTarget": "cst-future-orders-edge:build"
           }
         },
         "test": {

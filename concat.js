@@ -3,10 +3,10 @@ const concat = require("concat");
 
 (async function() {
     const files = [
-        "./dist/mpage-component-template/runtime.js",
-        "./dist/mpage-component-template/main.js",
-        "./dist/mpage-component-template/polyfills.js"
+        "./dist/cst-future-orders-edge/runtime.js",
+        "./dist/cst-future-orders-edge/main.js",
+        "./dist/cst-future-orders-edge/polyfills.js"
     ];
-    await concat(files, "./dist/mpage-component-template/mpage-component-template.js");
+    await concat(files, "./dist/cst-future-orders-edge/cst-future-orders-edge.js");
 
 })();

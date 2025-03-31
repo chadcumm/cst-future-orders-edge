@@ -68,8 +68,8 @@ export class AppModule {
       injector: this.injector
     });
     
-    if (!customElements.get('mpage-component-template')) {
-      customElements.define('mpage-component-template', element);
+    if (!customElements.get('cst-future-orders-edge')) {
+      customElements.define('cst-future-orders-edge', element);
     }
   }
 
