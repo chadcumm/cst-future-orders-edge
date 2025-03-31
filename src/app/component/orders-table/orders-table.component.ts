@@ -118,7 +118,7 @@ loading: boolean = false;
 
 files!: TreeNode[];
 
-selectedOrders: any[] = [];
+selectedOrders: TreeNode<any>[] = [];
 
 orderType: number = 0;
 
