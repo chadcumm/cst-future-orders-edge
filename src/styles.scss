@@ -1,4 +1,37 @@
-/* You can custom styles to this file, however DO NOT define any global styles as it will have a visual affect on Cerner standard components */
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
+// * Import theme from theme generator *//
+@use '@angular/material' as mat;
+@import "theme";
+
+@import "primeng/resources/themes/saga-blue/theme.css";
+@import "primeng/resources/primeng.min.css";
+@import "primeflex/primeflex.css";
 @import "primeicons/primeicons.css";
+
+html {
+    font-size: 12px;
+}
+
+.tdLessPadding {
+    td {
+      padding: 1px 1px !important;
+    }
+
+    th {
+      padding: 1px 1px !important;
+    }
+
+    tr {
+      padding: 1px 1px !important;
+    }
+
+  }
+
+  ::ng-deep {
+    .p-tooltip {
+        max-width: 750px;
+     }
+} 
+
+.cmctooltip {
+  max-width: 750px;
+}

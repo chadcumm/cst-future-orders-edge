@@ -25,6 +25,7 @@
     "@clinicaloffice/clinical-office-mpage-core": ">=0.0.1",
     "fast-sort": "^3.4.0",
     "luxon": "^3.3.0",
+    "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^16.9.1",
     "rxjs": "~7.8.0",
