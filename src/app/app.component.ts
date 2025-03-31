@@ -1,13 +1,15 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { mPageLogComponent, mPageService } from '@clinicaloffice/clinical-office-mpage-core';
+import { mPageLogComponent, mPageService, EncounterService, PersonService } from '@clinicaloffice/clinical-office-mpage-core';
 import { CUSTOM_DATE_FORMATS } from './app.module';
 import { ButtonModule } from 'primeng/button';
+import { FutureorderService } from './service/futureorder.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['../theme.scss', '../styles.scss'],
+  providers: [FutureorderService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.ShadowDom
 })
@@ -15,7 +17,13 @@ export class AppComponent implements OnInit {
 
   @ViewChild(mPageLogComponent) activityLog!: mPageLogComponent
 
-  constructor(public activatedRoute: ActivatedRoute, public mPage: mPageService) {
+  constructor(
+    public activatedRoute: ActivatedRoute,
+    public mPage: mPageService,
+    public futureOrdersService: FutureorderService,
+    public encounterService: EncounterService,
+    public personService: PersonService
+  ) {
 
   }
 
@@ -34,6 +42,7 @@ export class AppComponent implements OnInit {
       this.mPage.putLog('Component using ShadowDOM');
 
       // Add your initialization code here - do not place outside setTimeout function
+      this.futureOrdersService.loadFutureOrders();
     }, 0);
   }
 

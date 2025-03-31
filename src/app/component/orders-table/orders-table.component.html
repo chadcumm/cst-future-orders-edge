@@ -1,0 +1,202 @@
+<div *ngIf="this.futureOrderDS.liveEnabled">
+    <h2><font style="color:red"><u>
+      {{this.futureOrderDS.supportMessage}}
+    </u></font></h2>
+    
+</div>
+<div *ngIf="this.futureOrderDS.liveEnabled === false">
+<p-toolbar>
+  <table><tr><td class='vertical-align: bottom;'>
+  <div class="p-toolbar-group-left">
+    <!--
+    <button pButton type="button" (click)="onExpandOneLevel()" class="p-button-outlined">Expand</button>
+    <button pButton type="button" (click)="onCollapseOneLevel()" class="p-button-outlined">Collapse</button>
+    -->
+  </div>
+  <div class="p-toolbar-group-right">
+  Look Back <span [ngStyle]="{width: '10px'}"></span>
+  <input type="text" pInputText [(ngModel)]="lookbackNumber" (blur)="TimeFilter($event)" [style]="{width: '40px', height:'34px'}"/>
+
+  <p-dropdown [options]="this.loobackOptions" [(ngModel)]="selectedLookback" optionLabel="label"
+	[showClear]="false" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"
+  [style]="{width: '100px'}"
+  (onChange)="TimeFilter($event)" ></p-dropdown>
+
+  <span [ngStyle]="{width: '10px'}"></span>
+  Look Forward <span [ngStyle]="{width: '10px'}"></span>
+  <input type="text" pInputText [(ngModel)]="lookforwardNumber" (blur)="TimeFilter($event)" [style]="{width: '40px', height:'34px' }"/>
+
+  <p-dropdown [options]="this.lookforwardOptions" [(ngModel)]="selectedLookforward"  optionLabel="label"
+	[showClear]="false" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"
+  [style]="{width: '100px'}"
+  (onChange)="TimeFilter($event)" ></p-dropdown>
+  
+  <span [ngStyle]="{width: '10px'}"></span>
+
+<p-dropdown #specimenInput [options]="specimens" [(ngModel)]="selectedSpecimen" placeholder="Specimen Type" optionLabel="label"
+	[showClear]="true" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"
+  [style]="{width: '170px'}"
+  (onChange)="filterSpecimen($event)"
+  (onClear)="tt.filter('', 'specimenType', 'notEquals')" ></p-dropdown>
+  
+  <span [ngStyle]="{width: '10px'}"></span>
+
+<p-dropdown #providerInput [options]="futureOrderDS.providerList" [(ngModel)]="selectedProvider" placeholder="Provider" optionLabel="label"
+	[showClear]="true" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"
+  [style]="{width: '130px'}"
+  (onChange)="filterProvider($event)"
+  (onClear)="tt.filter('', 'orderingProvider', 'notEquals')" ></p-dropdown>
+
+  <span [ngStyle]="{width: '10px'}"></span>
+
+  <p-dropdown #locationInput [options]="futureOrderDS.orderingList" [(ngModel)]="selectedLocation" placeholder="Ordering Location" optionLabel="label"
+	[showClear]="true" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"
+  [style]="{width: '170px'}"
+  (onChange)="filterLocation($event)"
+  (onClear)="tt.filter('', 'orderingLocation', 'notEquals')" ></p-dropdown>
+
+  <span [ngStyle]="{width: '10px'}"></span>
+
+  <span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input pInputText [style]="{height:'34px'}" type="text" (input)="tt.filterGlobal($any($event.target).value, 'contains')" placeholder="Order Search" />
+    
+    </span>
+  
+  <span [ngStyle]="{width: '10px'}"></span>
+
+<!--span [ngStyle]="{width: '175px'}"
+(onChange)="tt.filter($event.value, 'typicalLab', 'equals')"
+-->
+  <p-checkbox 
+  [binary]="true" 
+  [(ngModel)]="typicalLab" 
+  (onChange)="TypicalLabs($event)"
+  label="Exclude orders uncommonly activated by Lab"></p-checkbox>
+<!--/span-->
+</div>
+</td></tr></table>
+</p-toolbar>
+
+<!--
+<span class="p-buttonset">
+  <button pButton type="button" value=0 (click)="this.tabChange(0)" label="Labs ({{this.orderCounts.lab}})"  
+  [ngClass]="this.orderType == 0 ? 'p-button-raised' : 'p-button-text'">
+  </button>
+  <button pButton type="button" value=1 (click)="this.tabChange(1)" label="Cardiology ({{this.orderCounts.cardiology}})"  
+  [ngClass]="this.orderType == 1 ? 'p-button-raised' : 'p-button-text'">
+</button>
+</span>
+-->
+
+<span class="p-buttonset">
+  <button pButton *ngIf="this.orderType == 0" type="button" value=0 (click)="this.tabChange(0)" label="Labs ({{this.orderCounts.lab}})"  
+  class="p-button-raised"></button>
+  <button pButton *ngIf="this.orderType == 1" type="button" value=0 (click)="this.tabChange(0)" label="Labs ({{this.orderCounts.lab}})"  
+  class="p-button-text"></button>
+  <button pButton *ngIf="this.orderType == 1" type="button" value=1 (click)="this.tabChange(1)" label="Cardiology ({{this.orderCounts.cardiology}})"  
+  class="p-button-raised"></button>
+  <button pButton *ngIf="this.orderType == 0" type="button" value=1 (click)="this.tabChange(1)" label="Cardiology ({{this.orderCounts.cardiology}})"  
+  class="p-button-text"></button>
+</span>
+
+<p-treeTable  
+#tt
+    [value]="files"
+    [columns]="cols"
+    [scrollable]="true"
+    [filterDelay]="0" [globalFilterFields]="['orderMnemonic']"
+    [style]="{width:'100%'}"
+    [(selection)]="selectedOrders"
+    styleClass="tdLessPadding"
+    [loading]="this.loading"
+    sortMode="multiple"
+    
+> 
+
+
+<ng-template pTemplate="header" let-columns>
+ 
+    <tr>
+      <th *ngFor="let col of columns" [ttSortableColumnDisabled]="col.sort" [ttSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
+        {{ col.header }}
+        <p-treeTableSortIcon *ngIf="col.sort === false" [field]="col.field"></p-treeTableSortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template
+  pTemplate="body"  
+  let-rowNode
+  let-rowData="rowData"
+  let-columns="columns"
+>
+  <tr 
+    [ttRow]="rowNode" 
+    [ngClass]="{'kb-row': rowData.hiddenData.dueStatusFlag === 1 }"
+    >
+    <!--pTooltip={{rowData.hoverInfo}} tooltipStyleClass="cmctooltip"  tooltipPosition="left"-->
+    <td 
+    (click)="rowClick(rowNode.node)"
+      [ngClass]="{'kb-cell': rowData.hiddenData.dueStatusFlag === 1 }"
+      [ngStyle]="{'width': col.width}"
+      *ngFor="let col of columns; let i = index"
+      
+      > 
+      <div *ngIf="i == 0 && rowData.orderId === 0"><b>{{rowData.requestedStartDateVc}}</b> - {{rowData.orderingProvider}}</div>
+      <p-treeTableToggler
+        [rowNode]="rowNode"
+        *ngIf="i == 0"
+      > 
+    </p-treeTableToggler>
+      <p-treeTableCheckbox
+        [value]="rowNode"
+        *ngIf="i == 0"
+      ></p-treeTableCheckbox>
+      <span [ngStyle]="{width: '130px'}"
+        pTooltip={{rowData.hoverInfo}} tooltipStyleClass="cmctooltip"  tooltipPosition="top" [escape]="false"
+      >
+        <img *ngIf="i == 0 && rowData.powerplan.ind === 1"
+          class="icon"
+          src="assets/powerplan.png"
+        />
+        <img *ngIf="i == 0 && rowData.orderCommentInd === 1"
+          class="icon"
+          src="assets/comment.gif"
+        />
+      </span>
+      <!--need to move lab note column-->
+      <i *ngIf="i == 3 && rowData.note.ind === 1" class="pi pi-exclamation-circle"
+      pTooltip={{rowData.hoverInfo}} tooltipStyleClass="cmctooltip"  tooltipPosition="top" [escape]="false">
+      </i>
+      {{ rowData[col.field] }}
+     
+    </td>
+  
+  </tr>
+</ng-template>
+<ng-template pTemplate="emptymessage">
+  <tr>
+    <td [attr.colspan]="cols.length">No data found.</td>
+  </tr>
+</ng-template>
+</p-treeTable>
+
+
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+   
+    <a href="#" id="applink" *ngIf="this.futureOrderDS.supportToolEndabled" (click)="OpenSupportTools($event)">
+      Support Tools</a>
+
+  </div>
+  <div class="p-toolbar-group-right">
+    Last Refresh: {{futureOrderDS.LastRefesh}}
+    <span [ngStyle]="{width: '10px'}"></span>
+  
+    <!--p-button label="Refresh" icon="pi pi-refresh" (click)="tableRefresh();"></p-button-->
+    <span [ngStyle]="{width: '10px'}"></span>
+    <p-button type="button" *ngIf="this.futureOrderDS.activateButtonEndabled" (click)="activaterOrders($event)">Activate</p-button>
+
+  </div>
+</p-toolbar>
+</div>
