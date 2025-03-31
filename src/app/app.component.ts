@@ -2,13 +2,14 @@ import { ChangeDetectionStrategy, Component, HostListener, OnInit, ViewChild, Vi
 import { ActivatedRoute } from "@angular/router";
 import { mPageLogComponent, mPageService } from '@clinicaloffice/clinical-office-mpage-core';
 import { CUSTOM_DATE_FORMATS } from './app.module';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['../theme.scss', '../styles.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.ShadowDom
+  //encapsulation: ViewEncapsulation.ShadowDom
 })
 export class AppComponent implements OnInit {
 
