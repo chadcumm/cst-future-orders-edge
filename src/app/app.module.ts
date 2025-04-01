@@ -13,6 +13,13 @@ import { ButtonModule } from 'primeng/button';
 import { OrdersTableComponent } from './component/orders-table/orders-table.component';
 import { TreeTableModule } from 'primeng/treetable';
 import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { ToolbarModule } from 'primeng/toolbar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { AccordionModule } from 'primeng/accordion';
+import { TabViewModule } from 'primeng/tabview';
+
 
 export const configFactory = (configService: ConfigService) => {
   return () => configService.loadConfig();
@@ -48,7 +55,16 @@ export const CUSTOM_DATE_FORMATS = {
     MatLuxonDateModule,
     ButtonModule,
     TreeTableModule,
-    TooltipModule
+    TooltipModule,
+    InputTextModule,
+    DropdownModule,
+    TreeTableModule,
+    TooltipModule,
+    InputTextModule,
+    ToolbarModule,
+    CheckboxModule,
+    AccordionModule,
+    TabViewModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
