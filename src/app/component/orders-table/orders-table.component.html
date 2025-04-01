@@ -93,5 +93,90 @@
     sortMode="multiple"
     
 >
+
+<ng-template pTemplate="header" let-columns>
+ 
+  <tr>
+    <th *ngFor="let col of columns" [ttSortableColumnDisabled]="col.sort" [ttSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
+      {{ col.header }}
+      <p-treeTableSortIcon *ngIf="col.sort === false" [field]="col.field"></p-treeTableSortIcon>
+    </th>
+  </tr>
+</ng-template>
+<ng-template
+pTemplate="body"  
+let-rowNode
+let-rowData="rowData"
+let-columns="columns"
+>
+<tr 
+  [ttRow]="rowNode" 
+  [ngClass]="{'kb-row': rowData.hiddenData.dueStatusFlag === 1 }"
+  >
+  <!--pTooltip={{rowData.hoverInfo}} tooltipStyleClass="cmctooltip"  tooltipPosition="left"-->
+  <td 
+  (click)="rowClick(rowNode.node)"
+    [ngClass]="{'kb-cell': rowData.hiddenData.dueStatusFlag === 1 }"
+    [ngStyle]="{'width': col.width}"
+    *ngFor="let col of columns; let i = index"
+    
+    > 
+    <div *ngIf="i == 0 && rowData.orderId === 0"><b>{{rowData.requestedStartDateVc}}</b> - {{rowData.orderingProvider}}</div>
+    <p-treeTableToggler
+      [rowNode]="rowNode"
+      *ngIf="i == 0"
+    > 
+  </p-treeTableToggler>
+    <p-treeTableCheckbox
+      [value]="rowNode"
+      *ngIf="i == 0"
+    ></p-treeTableCheckbox>
+    <span [ngStyle]="{width: '130px'}"
+      pTooltip={{rowData.hoverInfo}} tooltipStyleClass="cmctooltip"  tooltipPosition="top" [escape]="false"
+    >
+      <img *ngIf="i == 0 && rowData.powerplan.ind === 1"
+        class="icon"
+        src="assets/powerplan.png"
+      />
+      <img *ngIf="i == 0 && rowData.orderCommentInd === 1"
+        class="icon"
+        src="assets/comment.gif"
+      />
+    </span>
+    <!--need to move lab note column-->
+    <i *ngIf="i == 3 && rowData.note.ind === 1" class="pi pi-exclamation-circle"
+    pTooltip={{rowData.hoverInfo}} tooltipStyleClass="cmctooltip"  tooltipPosition="top" [escape]="false">
+    </i>
+    {{ rowData[col.field] }}
+   
+  </td>
+
+</tr>
+</ng-template>
+<ng-template pTemplate="emptymessage">
+<tr>
+  <td [attr.colspan]="cols.length">No data found.</td>
+</tr>
+</ng-template>
 </p-treeTable>
+
+
+<p-toolbar>
+<div class="p-toolbar-group-left">
+ 
+  <a href="#" id="applink" *ngIf="this.futureOrderDS.supportToolEndabled" (click)="OpenSupportTools($event)">
+    Support Tools</a>
+
+</div>
+<div class="p-toolbar-group-right">
+  Last Refresh: {{futureOrderDS.LastRefesh}}
+  <span [ngStyle]="{width: '10px'}"></span>
+
+  <!--p-button label="Refresh" icon="pi pi-refresh" (click)="tableRefresh();"></p-button-->
+  <span [ngStyle]="{width: '10px'}"></span>
+  <p-button type="button" *ngIf="this.futureOrderDS.activateButtonEndabled" (click)="activaterOrders($event)">Activate</p-button>
+
+</div>
+</p-toolbar>
+
 </div>
