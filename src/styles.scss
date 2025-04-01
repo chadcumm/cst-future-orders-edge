@@ -11,6 +11,28 @@ html {
     font-size: 12px;
 }
 
+// Shadow DOM overrides
+::ng-deep {
+    .p-tooltip {
+        max-width: 750px;
+    }
+    
+    // Add styles for other PrimeNG components that need shadow DOM access
+    .p-treeTable {
+        .p-treeTable-wrapper {
+            overflow: auto;
+        }
+    }
+    
+    .p-dropdown {
+        width: 100%;
+    }
+    
+    .p-toolbar {
+        padding: 0.5rem;
+    }
+}
+
 .tdLessPadding {
     td {
       padding: 1px 1px !important;
@@ -25,12 +47,6 @@ html {
     }
 
   }
-
-  ::ng-deep {
-    .p-tooltip {
-        max-width: 750px;
-     }
-} 
 
 .cmctooltip {
   max-width: 750px;
