@@ -468,15 +468,15 @@ el.click();
 }
 
 filterSpecimen(event: any): void {
-  this.treetable.filter(event.value, 'specimenType', 'equals');
+  this.treetable.filter(event.value.value, 'specimenType', 'equals');
 }
 
 filterProvider(event: any): void {
-  this.treetable.filter(event.value, 'orderingProvider', 'equals');
+  this.treetable.filter(event.value.value, 'orderingProvider', 'equals');
 }
 
 filterLocation(event: any): void {
-  this.treetable.filter(event.value, 'orderingLocation', 'equals');
+  this.treetable.filter(event.value.value, 'orderingLocation', 'equals');
 }
 
 }
