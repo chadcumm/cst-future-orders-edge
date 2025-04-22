@@ -275,7 +275,9 @@ return window;
 activaterOrders($event:any) :void {
 console.log($event) 
 this.mPage.putLog(`ActivateOrders Started`)
-this.selectedNodes = [];
+this.mPage.putLog(`ActivateOrders ${JSON.stringify($event)}`)
+this.mPage.putLog(`ActivateOrders ${JSON.stringify(this.selectedNodes)}`)
+
 }   
 
 
