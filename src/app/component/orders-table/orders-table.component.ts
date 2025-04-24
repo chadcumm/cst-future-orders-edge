@@ -283,6 +283,9 @@ activaterOrders($event:any) :void {
   const orders = Array.isArray(this.selectedOrders) ? this.selectedOrders : [this.selectedOrders];
   
   for (let ord of orders) {
+    console.log(ord.data.orderId)
+      //console.log(ord.data.hiddenData.needLabCollection)
+      //console.log(ord.data.hiddenData.needDateUpdate)
     if (ord.data.hiddenData.needLabCollection == 1) {
       //window.alert("needs collection flipped")
       // @ts-ignore
@@ -302,7 +305,7 @@ activaterOrders($event:any) :void {
     }
   }
   
-
+  console.log("activating orders section")
     var d=new Date();
       var twoDigit=function(num: string | number){(String(num).length<2)?num=String("0"+num):num=String(num);
         return num;
@@ -310,12 +313,13 @@ activaterOrders($event:any) :void {
       var activateDate=""+d.getFullYear()+twoDigit((d.getMonth()+1))+twoDigit(d.getDate())+twoDigit(d.getHours())+twoDigit(d.getMinutes())+twoDigit(d.getSeconds())+"99";
       console.log(activateDate)
       // @ts-ignore
-      var PowerOrdersMPageUtils = window.external.DiscernObjectFactory("POWERORDERS");
-      var hMoew = null;
-      hMoew = PowerOrdersMPageUtils.CreateMOEW(this.mPage.personId, this.mPage.encntrId, 0, 2, 127)
+      //var PowerOrdersMPageUtils = window.external.DiscernObjectFactory("POWERORDERS");
+      //var hMoew = null;
+      //hMoew = PowerOrdersMPageUtils.CreateMOEW(this.mPage.personId, this.mPage.encntrId, 0, 2, 127)
+      
       
       for (let ord of orders) {
-
+        console.log(ord.data.orderId)
         if (ord.data.orderId > 0) {
         this.mPage.putLog(`Order ID: ${ord.data.orderId}`)
         this.mPage.putLog("~MINE~,"+ord.data.orderId+","+this.mPage.encntrId+","+ord.data.hiddenData.needLabCollection+","+ord.data.hiddenData.needDateUpdate) 
@@ -325,20 +329,20 @@ activaterOrders($event:any) :void {
         OEFRequest.open("GET","bc_all_future_ord_lb_set",true);
         OEFRequest.send("~MINE~,"+ord.data.orderId+","+this.mPage.encntrId+","+ord.data.hiddenData.needLabCollection+","+ord.data.hiddenData.needDateUpdate)
        
-        var success=PowerOrdersMPageUtils.InvokeActivateAction(hMoew,ord.data.orderId,activateDate);
+        //var success=PowerOrdersMPageUtils.InvokeActivateAction(hMoew,ord.data.orderId,activateDate);
         }
       }
     
-    if(success){
-        PowerOrdersMPageUtils.SignOrders(hMoew);   
-        let vLookback = `${this.lookbackNumber},${this.selectedLookback.value}`
-        let vLookforward = `${this.lookforwardNumber},${this.selectedLookforward.value}` 
-        this.tableRefresh(vLookback,vLookforward,this.orderType)
-    }
+    //if(success){
+    //    PowerOrdersMPageUtils.SignOrders(hMoew);   
+    //    let vLookback = `${this.lookbackNumber},${this.selectedLookback.value}`
+    //    let vLookforward = `${this.lookforwardNumber},${this.selectedLookforward.value}` 
+    //    this.tableRefresh(vLookback,vLookforward,this.orderType)
+    //}
 
     this.selectedOrders = [];
     this.mPage.putLog("Ending ActivateOrders")
-    PowerOrdersMPageUtils.DestroyMOEW(hMoew);
+    //PowerOrdersMPageUtils.DestroyMOEW(hMoew);
 }   
 
 
