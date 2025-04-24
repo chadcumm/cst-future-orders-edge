@@ -352,18 +352,22 @@ InvokeActivateActionPromise(orders: any, activateDate: string) {
   // @ts-ignore
   window.external.DiscernObjectFactory("POWERORDERS").then((PowerOrdersMPagesUtils) => {
     PowerOrdersMPagesUtils.CreateMOEW(this.mPage.personId, this.mPage.encntrId, 0, 2, 127).then((m_hMOEW: any) => {
-      for (let ord of orders) {
-        console.log(ord.data.orderId)
+      const activatePromises = orders.map((ord: any) => {
         if (ord.data.orderId > 0) {
-          this.mPage.putLog(`Invoke Activate for Order ID: ${ord.data.orderId}`)
-          let success = PowerOrdersMPagesUtils.InvokeActivateAction(m_hMOEW,ord.data.orderId,activateDate);
+          console.log(ord.data.orderId);
+          this.mPage.putLog(`Invoke Activate for Order ID: ${ord.data.orderId}`);
+          return PowerOrdersMPagesUtils.InvokeActivateAction(m_hMOEW, ord.data.orderId, activateDate);
         }
-      }
-      PowerOrdersMPagesUtils.SignOrders(m_hMOEW);
-      PowerOrdersMPagesUtils.DestroyMOEW(m_hMOEW);
-      let vLookback = `${this.lookbackNumber},${this.selectedLookback.value}`
-      let vLookforward = `${this.lookforwardNumber},${this.selectedLookforward.value}` 
-      this.tableRefresh(vLookback,vLookforward,this.orderType)
+        return Promise.resolve();
+      });
+
+      Promise.all(activatePromises).then(() => {
+        PowerOrdersMPagesUtils.SignOrders(m_hMOEW);
+        PowerOrdersMPagesUtils.DestroyMOEW(m_hMOEW);
+        let vLookback = `${this.lookbackNumber},${this.selectedLookback.value}`;
+        let vLookforward = `${this.lookforwardNumber},${this.selectedLookforward.value}`;
+        this.tableRefresh(vLookback, vLookforward, this.orderType);
+      });
     })
   })
 }
