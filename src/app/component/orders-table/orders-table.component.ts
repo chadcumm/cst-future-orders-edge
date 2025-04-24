@@ -289,7 +289,7 @@ activaterOrders($event:any) :void {
     if (ord.data.hiddenData.needLabCollection == 1) {
       //window.alert("needs collection flipped")
       // @ts-ignore
-      var OEFRequest = window.external.XMLCclRequest();						
+      var OEFRequest = new XMLCclRequest();						
       OEFRequest.open("GET","bc_cmc_test",true);
       OEFRequest.send("~MINE~,"+ord.data.orderId+",~NURSECOLLECT~")
     }
@@ -299,7 +299,7 @@ activaterOrders($event:any) :void {
     if (ord.data.hiddenData.needDateUpdate == 1) {
      // window.alert("needs collection date time updated")
       // @ts-ignore
-      var OEFRequest = window.external.XMLCclRequest();						
+      var OEFRequest = new XMLCclRequest();						
       OEFRequest.open("GET","bc_cmc_test",true);
       OEFRequest.send("~MINE~,"+ord.data.orderId+",~COLLECTIONDATE~")
     }
@@ -325,7 +325,7 @@ activaterOrders($event:any) :void {
         this.mPage.putLog("~MINE~,"+ord.data.orderId+","+this.mPage.encntrId+","+ord.data.hiddenData.needLabCollection+","+ord.data.hiddenData.needDateUpdate) 
         //console.log("~MINE~,"+ord.data.orderId+","+this.mPage.encntrId+","+ord.data.hiddenData.needLabCollection+","+ord.data.hiddenData.needDateUpdate) 
         // @ts-ignore
-        var OEFRequest = window.external.XMLCclRequest();						
+        var OEFRequest = new XMLCclRequest();						
         OEFRequest.open("GET","bc_all_future_ord_lb_set",true);
         OEFRequest.send("~MINE~,"+ord.data.orderId+","+this.mPage.encntrId+","+ord.data.hiddenData.needLabCollection+","+ord.data.hiddenData.needDateUpdate)
        
