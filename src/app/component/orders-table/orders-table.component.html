@@ -87,7 +87,7 @@
     [scrollable]="true"
     [filterDelay]="0" [globalFilterFields]="['orderMnemonic']"
     [style]="{width:'100%'}"
-    
+    [(selection)]="selectedOrders"
     selectionMode="multiple"
     styleClass="tdLessPadding"
     [loading]="this.loading"

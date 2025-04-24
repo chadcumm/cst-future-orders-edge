@@ -118,7 +118,7 @@ loading: boolean = false;
 
 files!: TreeNode[];
 
-selectedNodes!: TreeNode[];
+selectedOrders: TreeTableNode<any> | TreeTableNode<any>[] = [];
 
 orderType: number = 0;
 
@@ -271,11 +271,72 @@ _window() {
 return window;
 }
 
+
 activaterOrders($event:any) :void {
-console.log($event) 
+  console.log("activaterOrders")
+  console.log($event) 
+console.log(this.selectedOrders)
+
 this.mPage.putLog(`ActivateOrders Started`)
 this.mPage.putLog(`$event ${JSON.stringify($event)}`)
 
+for (let ord of this.selectedOrders) {
+        if (ord.data.hiddenData.needLabCollection == 1) {
+          //window.alert("needs collection flipped")
+          // @ts-ignore
+          var OEFRequest = window.external.XMLCclRequest();						
+          OEFRequest.open("GET","bc_cmc_test",false);
+          OEFRequest.send("~MINE~,"+ord.data.orderId+",~NURSECOLLECT~")
+        }
+    }
+
+    for (let ord of this.selectedOrders) {
+      if (ord.data.hiddenData.needDateUpdate == 1) {
+       // window.alert("needs collection date time updated")
+        // @ts-ignore
+        var OEFRequest = window.external.XMLCclRequest();						
+        OEFRequest.open("GET","bc_cmc_test",false);
+        OEFRequest.send("~MINE~,"+ord.data.orderId+",~COLLECTIONDATE~")
+      }
+  }
+  
+
+    var d=new Date();
+      var twoDigit=function(num: string | number){(String(num).length<2)?num=String("0"+num):num=String(num);
+        return num;
+      };
+      var activateDate=""+d.getFullYear()+twoDigit((d.getMonth()+1))+twoDigit(d.getDate())+twoDigit(d.getHours())+twoDigit(d.getMinutes())+twoDigit(d.getSeconds())+"99";
+      console.log(activateDate)
+      // @ts-ignore
+      var PowerOrdersMPageUtils = window.external.DiscernObjectFactory("POWERORDERS");
+      var hMoew = null;
+      hMoew = PowerOrdersMPageUtils.CreateMOEW(this.mPage.personId, this.mPage.encntrId, 0, 2, 127)
+      
+      for (let ord of this.selectedOrders) {
+
+        if (ord.data.orderId > 0) {
+        this.mPage.putLog(`Order ID: ${ord.data.orderId}`)
+        this.mPage.putLog("~MINE~,"+ord.data.orderId+","+this.mPage.encntrId+","+ord.data.hiddenData.needLabCollection+","+ord.data.hiddenData.needDateUpdate) 
+        //console.log("~MINE~,"+ord.data.orderId+","+this.mPage.encntrId+","+ord.data.hiddenData.needLabCollection+","+ord.data.hiddenData.needDateUpdate) 
+        // @ts-ignore
+        var OEFRequest = window.external.XMLCclRequest();						
+        OEFRequest.open("GET","bc_all_future_ord_lb_set",false);
+        OEFRequest.send("~MINE~,"+ord.data.orderId+","+this.mPage.encntrId+","+ord.data.hiddenData.needLabCollection+","+ord.data.hiddenData.needDateUpdate)
+       
+        var success=PowerOrdersMPageUtils.InvokeActivateAction(hMoew,ord.data.orderId,activateDate);
+        }
+      }
+    
+    if(success){
+        PowerOrdersMPageUtils.SignOrders(hMoew);   
+        let vLookback = `${this.lookbackNumber},${this.selectedLookback.value}`
+        let vLookforward = `${this.lookforwardNumber},${this.selectedLookforward.value}` 
+        this.tableRefresh(vLookback,vLookforward,this.orderType)
+    }
+
+    this.selectedOrders = [];
+    this.mPage.putLog("Ending ActivateOrders")
+    PowerOrdersMPageUtils.DestroyMOEW(hMoew);
 }   
 
 
