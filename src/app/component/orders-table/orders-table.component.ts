@@ -333,9 +333,9 @@ activaterOrders($event:any) :void {
         
         }
         //this.InvokeActivateAction(orders,activateDate)
-        this.InvokeActivateActionPromise(orders,activateDate)
+        
       }
-    
+      this.InvokeActivateActionPromise(orders,activateDate)
     //if(success){
     //    PowerOrdersMPageUtils.SignOrders(hMoew);   
     //    let vLookback = `${this.lookbackNumber},${this.selectedLookback.value}`
