@@ -275,29 +275,31 @@ return window;
 activaterOrders($event:any) :void {
   console.log("activaterOrders")
   console.log($event) 
-console.log(this.selectedOrders)
-
-this.mPage.putLog(`ActivateOrders Started`)
-this.mPage.putLog(`$event ${JSON.stringify($event)}`)
-
-for (let ord of this.selectedOrders) {
-        if (ord.data.hiddenData.needLabCollection == 1) {
-          //window.alert("needs collection flipped")
-          // @ts-ignore
-          var OEFRequest = window.external.XMLCclRequest();						
-          OEFRequest.open("GET","bc_cmc_test",false);
-          OEFRequest.send("~MINE~,"+ord.data.orderId+",~NURSECOLLECT~")
-        }
+  console.log(this.selectedOrders)
+  
+  this.mPage.putLog(`ActivateOrders Started`)
+  this.mPage.putLog(`$event ${JSON.stringify($event)}`)
+  
+  const orders = Array.isArray(this.selectedOrders) ? this.selectedOrders : [this.selectedOrders];
+  
+  for (let ord of orders) {
+    if (ord.data.hiddenData.needLabCollection == 1) {
+      //window.alert("needs collection flipped")
+      // @ts-ignore
+      var OEFRequest = window.external.XMLCclRequest();						
+      OEFRequest.open("GET","bc_cmc_test",true);
+      OEFRequest.send("~MINE~,"+ord.data.orderId+",~NURSECOLLECT~")
     }
+  }
 
-    for (let ord of this.selectedOrders) {
-      if (ord.data.hiddenData.needDateUpdate == 1) {
-       // window.alert("needs collection date time updated")
-        // @ts-ignore
-        var OEFRequest = window.external.XMLCclRequest();						
-        OEFRequest.open("GET","bc_cmc_test",false);
-        OEFRequest.send("~MINE~,"+ord.data.orderId+",~COLLECTIONDATE~")
-      }
+  for (let ord of orders) {
+    if (ord.data.hiddenData.needDateUpdate == 1) {
+     // window.alert("needs collection date time updated")
+      // @ts-ignore
+      var OEFRequest = window.external.XMLCclRequest();						
+      OEFRequest.open("GET","bc_cmc_test",true);
+      OEFRequest.send("~MINE~,"+ord.data.orderId+",~COLLECTIONDATE~")
+    }
   }
   
 
@@ -312,7 +314,7 @@ for (let ord of this.selectedOrders) {
       var hMoew = null;
       hMoew = PowerOrdersMPageUtils.CreateMOEW(this.mPage.personId, this.mPage.encntrId, 0, 2, 127)
       
-      for (let ord of this.selectedOrders) {
+      for (let ord of orders) {
 
         if (ord.data.orderId > 0) {
         this.mPage.putLog(`Order ID: ${ord.data.orderId}`)
@@ -320,7 +322,7 @@ for (let ord of this.selectedOrders) {
         //console.log("~MINE~,"+ord.data.orderId+","+this.mPage.encntrId+","+ord.data.hiddenData.needLabCollection+","+ord.data.hiddenData.needDateUpdate) 
         // @ts-ignore
         var OEFRequest = window.external.XMLCclRequest();						
-        OEFRequest.open("GET","bc_all_future_ord_lb_set",false);
+        OEFRequest.open("GET","bc_all_future_ord_lb_set",true);
         OEFRequest.send("~MINE~,"+ord.data.orderId+","+this.mPage.encntrId+","+ord.data.hiddenData.needLabCollection+","+ord.data.hiddenData.needDateUpdate)
        
         var success=PowerOrdersMPageUtils.InvokeActivateAction(hMoew,ord.data.orderId,activateDate);
@@ -350,7 +352,7 @@ console.log("logChange")
 rowClick(node:any) :void {
 console.log("start rowclick")
 console.log(`nodes ${node}`) 
-console.log(this.selectedNodes)
+console.log(this.selectedOrders)
 this.treetable.toggleNodeWithCheckbox(node.node);
 console.log("end rowclick")
 } 
