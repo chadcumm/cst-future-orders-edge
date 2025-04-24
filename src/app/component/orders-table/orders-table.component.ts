@@ -118,8 +118,7 @@ loading: boolean = false;
 
 files!: TreeNode[];
 
-
-selectedNodes!: TreeNode[]
+selectedNodes!: TreeNode[];
 
 orderType: number = 0;
 
@@ -275,8 +274,7 @@ return window;
 activaterOrders($event:any) :void {
 console.log($event) 
 this.mPage.putLog(`ActivateOrders Started`)
-this.mPage.putLog(`ActivateOrders ${JSON.stringify($event)}`)
-this.mPage.putLog(`ActivateOrders ${JSON.stringify(this.selectedNodes)}`)
+this.mPage.putLog(`$event ${JSON.stringify($event)}`)
 
 }   
 
@@ -289,11 +287,11 @@ console.log("logChange")
 } 
 
 rowClick(node:any) :void {
-//console.log("start rowclick")
-//console.log(node) 
-//console.log(this.selectedOrders)
-this.treetable.toggleNodeWithCheckbox(node)
-//console.log("end rowclick")
+console.log("start rowclick")
+console.log(`nodes ${node}`) 
+console.log(this.selectedNodes)
+this.treetable.toggleNodeWithCheckbox(node.node);
+console.log("end rowclick")
 } 
 
 toggleVisibility(isChecked: boolean)
