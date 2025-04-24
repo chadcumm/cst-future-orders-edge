@@ -271,7 +271,25 @@ _window() {
 return window;
 }
 
+async InvokeActivateAction(order_id: number, activateDate: string) {
+  this.mPage.putLog("InvokeActivateAction")
+  // @ts-ignore
+  const PowerOrdersMPagesUtils = await window.external.DiscernObjectFactory("POWERORDERS");
+  const m_hMOEW = await PowerOrdersMPagesUtils.CreateMOEW(this.mPage.personId, this.mPage.encntrId, 0, 2, 127)
+  await PowerOrdersMPagesUtils.DisplayMOEW(m_hMOEW);
+  const success = await PowerOrdersMPagesUtils.InvokeActivateAction(m_hMOEW,order_id,activateDate);
+  PowerOrdersMPagesUtils.DestroyMOEW(m_hMOEW);
+  this.mPage.putLog("InvokeActivateAction done")
 
+  if (success) {
+    this.mPage.putLog("InvokeActivateAction success")
+    let vLookback = `${this.lookbackNumber},${this.selectedLookback.value}`
+    let vLookforward = `${this.lookforwardNumber},${this.selectedLookforward.value}` 
+    this.tableRefresh(vLookback,vLookforward,this.orderType)
+  }
+
+
+}
 activaterOrders($event:any) :void {
   console.log("activaterOrders")
   console.log($event) 
@@ -330,6 +348,7 @@ activaterOrders($event:any) :void {
         OEFRequest.send("~MINE~,"+ord.data.orderId+","+this.mPage.encntrId+","+ord.data.hiddenData.needLabCollection+","+ord.data.hiddenData.needDateUpdate)
        
         //var success=PowerOrdersMPageUtils.InvokeActivateAction(hMoew,ord.data.orderId,activateDate);
+        this.InvokeActivateAction(ord.data.orderId,activateDate)
         }
       }
     
