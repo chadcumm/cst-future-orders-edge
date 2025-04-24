@@ -276,7 +276,7 @@ async InvokeActivateAction(order_id: number, activateDate: string) {
   // @ts-ignore
   const PowerOrdersMPagesUtils = await window.external.DiscernObjectFactory("POWERORDERS");
   const m_hMOEW = await PowerOrdersMPagesUtils.CreateMOEW(this.mPage.personId, this.mPage.encntrId, 0, 2, 127)
-  await PowerOrdersMPagesUtils.DisplayMOEW(m_hMOEW);
+  
   const success = await PowerOrdersMPagesUtils.InvokeActivateAction(m_hMOEW,order_id,activateDate);
   PowerOrdersMPagesUtils.DestroyMOEW(m_hMOEW);
   this.mPage.putLog("InvokeActivateAction done")
