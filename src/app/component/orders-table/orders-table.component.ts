@@ -332,7 +332,8 @@ activaterOrders($event:any) :void {
         //var success=PowerOrdersMPageUtils.InvokeActivateAction(hMoew,ord.data.orderId,activateDate);
         
         }
-        this.InvokeActivateAction(orders,activateDate)
+        //this.InvokeActivateAction(orders,activateDate)
+        this.InvokeActivateActionPromise(orders,activateDate)
       }
     
     //if(success){
@@ -346,6 +347,21 @@ activaterOrders($event:any) :void {
     this.mPage.putLog("Ending ActivateOrders")
     //PowerOrdersMPageUtils.DestroyMOEW(hMoew);
 }  
+
+InvokeActivateActionPromise(orders: any, activateDate: string) {
+  // @ts-ignore
+  window.external.DiscernObjectFactory("POWERORDERS").then((PowerOrdersMPagesUtils) => {
+    PowerOrdersMPagesUtils.CreateMOEW(this.mPage.personId, this.mPage.encntrId, 0, 2, 127).then((m_hMOEW: any) => {
+      for (let ord of orders) {
+        console.log(ord.data.orderId)
+        if (ord.data.orderId > 0) {
+          this.mPage.putLog(`Invoke Activate for Order ID: ${ord.data.orderId}`)
+          let success = PowerOrdersMPagesUtils.InvokeActivateAction(m_hMOEW,ord.data.orderId,activateDate);
+        }
+      }
+    })
+  })
+}
 
 async InvokeActivateAction(orders: any, activateDate: string) {
   this.mPage.putLog("InvokeActivateAction")
