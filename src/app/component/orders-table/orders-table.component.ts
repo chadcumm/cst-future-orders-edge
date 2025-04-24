@@ -359,6 +359,11 @@ InvokeActivateActionPromise(orders: any, activateDate: string) {
           let success = PowerOrdersMPagesUtils.InvokeActivateAction(m_hMOEW,ord.data.orderId,activateDate);
         }
       }
+      PowerOrdersMPagesUtils.SignOrders(m_hMOEW);
+      PowerOrdersMPagesUtils.DestroyMOEW(m_hMOEW);
+      let vLookback = `${this.lookbackNumber},${this.selectedLookback.value}`
+      let vLookforward = `${this.lookforwardNumber},${this.selectedLookforward.value}` 
+      this.tableRefresh(vLookback,vLookforward,this.orderType)
     })
   })
 }
@@ -382,7 +387,7 @@ async InvokeActivateAction(orders: any, activateDate: string) {
   
   this.mPage.putLog("InvokeActivateAction done")
 
-    
+
   if (success) {
     this.mPage.putLog("InvokeActivateAction success")
     let vLookback = `${this.lookbackNumber},${this.selectedLookback.value}`
