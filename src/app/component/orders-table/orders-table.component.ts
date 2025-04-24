@@ -353,20 +353,20 @@ async InvokeActivateAction(orders: any, activateDate: string) {
   const PowerOrdersMPagesUtils = await window.external.DiscernObjectFactory("POWERORDERS");
   const m_hMOEW = await PowerOrdersMPagesUtils.CreateMOEW(this.mPage.personId, this.mPage.encntrId, 0, 2, 127)
   
-  const success = false; // Initialize success with a default value
+  let success = false; // Initialize success with a default value
   
   for (let ord of orders) {
     console.log(ord.data.orderId)
     if (ord.data.orderId > 0) {
       this.mPage.putLog(`Invoke Activate for Order ID: ${ord.data.orderId}`)
-      const success = await PowerOrdersMPagesUtils.InvokeActivateAction(m_hMOEW,ord.data.orderId,activateDate);
+      success = await PowerOrdersMPagesUtils.InvokeActivateAction(m_hMOEW,ord.data.orderId,activateDate);
     }
   }
   //const success = await PowerOrdersMPagesUtils.InvokeActivateAction(m_hMOEW,order_id,activateDate);
   
   this.mPage.putLog("InvokeActivateAction done")
 
-  
+    
   if (success) {
     this.mPage.putLog("InvokeActivateAction success")
     let vLookback = `${this.lookbackNumber},${this.selectedLookback.value}`
