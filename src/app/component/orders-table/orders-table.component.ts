@@ -364,12 +364,13 @@ InvokeActivateActionPromise(orders: any, activateDate: string) {
       Promise.all(activatePromises).then(() => {
         PowerOrdersMPagesUtils.SignOrders(m_hMOEW);
         PowerOrdersMPagesUtils.DestroyMOEW(m_hMOEW);
-        let vLookback = `${this.lookbackNumber},${this.selectedLookback.value}`;
-        let vLookforward = `${this.lookforwardNumber},${this.selectedLookforward.value}`;
-        this.tableRefresh(vLookback, vLookforward, this.orderType);
+        
       });
     })
   })
+  let vLookback = `${this.lookbackNumber},${this.selectedLookback.value}`;
+  let vLookforward = `${this.lookforwardNumber},${this.selectedLookforward.value}`;
+  this.tableRefresh(vLookback, vLookforward, this.orderType);
 }
 
 async InvokeActivateAction(orders: any, activateDate: string) {
