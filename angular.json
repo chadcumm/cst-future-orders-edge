@@ -32,6 +32,7 @@
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
               {
                 "input": "src/styles.scss",
                 "bundleName": "styles"
@@ -110,7 +111,8 @@
               "src/styles.scss",
               "src/theme.scss",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css"
             ],
             "scripts": []
           }
