@@ -73,7 +73,11 @@
         [(ngModel)]="orderSearchText"
         (input)="tt.filterGlobal($any($event.target).value, 'contains')" 
         placeholder="Order Search" />
-        <i *ngIf="orderSearchText" class="pi pi-times clear-icon" (click)="clearOrderSearch()"></i>
+        <i *ngIf="orderSearchText"  (click)="clearOrderSearch()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 5 24 24" width="16" height="16" class="clear-icon" (click)="clearOrderSearch()">
+            <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7a1 1 0 0 0-1.41 1.41L10.59 12l-4.89 4.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.41z"/>
+          </svg>
+        </i>
       </span>
     
     <span [ngStyle]="{width: '10px'}"></span>
