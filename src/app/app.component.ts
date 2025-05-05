@@ -10,10 +10,10 @@ import { FutureorderService } from './service/futureorder.service';
   templateUrl: './app.component.html',
   styleUrls: ['../theme.scss', '../styles.scss'],
   providers: [FutureorderService],
-  encapsulation: ViewEncapsulation.Emulated,
-  host: {
-    '[class]': '"p-component"'
-  }
+  //encapsulation: ViewEncapsulation.Emulated,
+  //host: {
+  //  '[class]': '"p-component"'
+  //}
 })
 export class AppComponent implements OnInit {
 
