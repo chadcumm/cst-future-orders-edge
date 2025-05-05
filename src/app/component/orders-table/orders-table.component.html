@@ -22,7 +22,8 @@
     <p-dropdown [options]="this.loobackOptions" [(ngModel)]="selectedLookback" optionLabel="label"
     [showClear]="false" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"
     [style]="{width: '100px'}"
-    (onChange)="TimeFilter($event)" ></p-dropdown>
+    (onChange)="TimeFilter($event)" 
+    appendTo="body"></p-dropdown>
   
     <span [ngStyle]="{width: '10px'}"></span>
     Look Forward <span [ngStyle]="{width: '10px'}"></span>
@@ -90,7 +91,7 @@
     <button pButton *ngIf="this.orderType == 0" type="button" value=1 (click)="this.tabChange(1)" label="Cardiology ({{this.orderCounts.cardiology}})"  
     class="p-button-text"></button>
   </span>
-  
+
   <p-treeTable  
     #tt
     [value]="files"
