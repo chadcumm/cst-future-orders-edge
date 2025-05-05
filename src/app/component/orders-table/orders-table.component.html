@@ -80,6 +80,17 @@
   </td></tr></table>
   </p-toolbar>
 
+  <span class="p-buttonset">
+    <button pButton *ngIf="this.orderType == 0" type="button" value=0 (click)="this.tabChange(0)" label="Labs ({{this.orderCounts.lab}})"  
+    class="p-button-raised"></button>
+    <button pButton *ngIf="this.orderType == 1" type="button" value=0 (click)="this.tabChange(0)" label="Labs ({{this.orderCounts.lab}})"  
+    class="p-button-text"></button>
+    <button pButton *ngIf="this.orderType == 1" type="button" value=1 (click)="this.tabChange(1)" label="Cardiology ({{this.orderCounts.cardiology}})"  
+    class="p-button-raised"></button>
+    <button pButton *ngIf="this.orderType == 0" type="button" value=1 (click)="this.tabChange(1)" label="Cardiology ({{this.orderCounts.cardiology}})"  
+    class="p-button-text"></button>
+  </span>
+  
   <p-treeTable  
     #tt
     [value]="files"
