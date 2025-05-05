@@ -55,6 +55,19 @@ html {
     height: 32px;
 }
 
+.clear-icon {
+    cursor: pointer;
+    margin-left: -25px;
+    color: #888;
+    font-size: 16px;
+    position: relative;
+    top: 2px;
+  }
+  
+  .clear-icon:hover {
+    color: #000;
+  }
+  
 .custom-exclamation-circle:before {
     font-family: 'PrimeIcons';
     content: '\e987'; /* Unicode for pi-exclamation-circle */

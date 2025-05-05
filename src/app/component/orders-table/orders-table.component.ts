@@ -96,7 +96,7 @@ level: number = 0;
 specimens: Specimens[] = [];
 loobackOptions: LookOptions[] = [];
 lookbackNumber: number = 1;
-
+orderSearchText: string = '';
 lookforwardOptions: LookOptions[] = [];
 lookforwardNumber: number = 1;
 
@@ -173,6 +173,10 @@ this.futureOrderDS.refresh = false;
 
 }
 
+clearOrderSearch(): void {
+  this.orderSearchText = '';
+  this.treetable.filterGlobal('', 'contains'); // Clear the global filter
+}
 ngOnInit(): void {
 
 

@@ -66,8 +66,14 @@
           <path d="M10.5,3A7.5,7.5,0,1,0,18,10.5a7.5,7.5,0,0,0-7.5-7.5Zm0,13A5.5,5.5,0,1,1,16,10.5,5.5,5.5,0,0,1,10.5,16ZM21.71,20.29l-4.38-4.38a1,1,0,0,0-1.42,1.42l4.38,4.38a1,1,0,0,0,1.42-1.42Z"/>
         </svg>
       </i>
-      <input pInputText [style]="{height:'34px'}" type="text" (input)="tt.filterGlobal($any($event.target).value, 'contains')" placeholder="Order Search" />
-      
+      <input 
+        pInputText 
+        [style]="{height:'34px'}" 
+        type="text" 
+        [(ngModel)]="orderSearchText"
+        (input)="tt.filterGlobal($any($event.target).value, 'contains')" 
+        placeholder="Order Search" />
+        <i *ngIf="orderSearchText" class="pi pi-times clear-icon" (click)="clearOrderSearch()"></i>
       </span>
     
     <span [ngStyle]="{width: '10px'}"></span>
