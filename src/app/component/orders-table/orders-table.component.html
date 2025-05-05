@@ -61,7 +61,11 @@
     <span [ngStyle]="{width: '10px'}"></span>
   
     <span class="p-input-icon-left">
-      <i class="pi pi-search"></i>
+      <i>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" width="20" height="20">
+          <path d="M10.5,3A7.5,7.5,0,1,0,18,10.5a7.5,7.5,0,0,0-7.5-7.5Zm0,13A5.5,5.5,0,1,1,16,10.5,5.5,5.5,0,0,1,10.5,16ZM21.71,20.29l-4.38-4.38a1,1,0,0,0-1.42,1.42l4.38,4.38a1,1,0,0,0,1.42-1.42Z"/>
+        </svg>
+      </i>
       <input pInputText [style]="{height:'34px'}" type="text" (input)="tt.filterGlobal($any($event.target).value, 'contains')" placeholder="Order Search" />
       
       </span>
@@ -157,8 +161,11 @@ let-columns="columns"
       />
     </span>
     <!--need to move lab note column-->
-    <i *ngIf="i == 3 && rowData.note.ind === 1" class="pi pi-exclamation-circle"
+    <i *ngIf="i == 3 && rowData.note.ind === 1"
     pTooltip={{rowData.hoverInfo}} tooltipStyleClass="cmctooltip"  tooltipPosition="top" [escape]="false">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20ZM11,10h2v6h-2Zm0-4h2v2h-2Z"/>
+    </svg>
     </i>
     {{ rowData[col.field] }}
    
