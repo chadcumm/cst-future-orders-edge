@@ -10,7 +10,7 @@ import { FutureorderService } from './service/futureorder.service';
   templateUrl: './app.component.html',
   styleUrls: ['../theme.scss', '../styles.scss'],
   providers: [FutureorderService],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   host: {
     '[class]': '"p-component"'
   }
