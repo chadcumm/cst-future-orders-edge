@@ -5,20 +5,9 @@
 // PrimeNG styles
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.min.css";
-@import "primeicons/primeicons.css";
+//@import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
 
-@font-face {
-    font-family: 'PrimeIcons';
-    src: url('http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/fonts/primeicons/primeicons.eot');
-    src: url('http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/fonts/primeicons/primeicons.eot?#iefix') format('embedded-opentype'),
-         url('http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/fonts/primeicons/primeicons.woff2') format('woff2'),
-         url('http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/fonts/primeicons/primeicons.woff') format('woff'),
-         url('http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/fonts/primeicons/primeicons.ttf') format('truetype'),
-         url('http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/fonts/primeicons/primeicons.svg#primeicons') format('svg');
-    font-weight: normal;
-    font-style: normal;
-  }
 
 html {
     font-size: 12px;
@@ -60,3 +49,31 @@ html {
 .cmctooltip {
     max-width: 750px;
 }
+
+@font-face {
+    font-family: 'PrimeIcons';
+    src: url('http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/fonts/primeicons/primeicons.eot');
+    src: url('http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/fonts/primeicons/primeicons.eot?#iefix') format('embedded-opentype'),
+         url('http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/fonts/primeicons/primeicons.woff2') format('woff2'),
+         url('http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/fonts/primeicons/primeicons.woff') format('woff'),
+         url('http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/fonts/primeicons/primeicons.ttf') format('truetype'),
+         url('http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/fonts/primeicons/primeicons.svg#primeicons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.custom-exclamation-circle:before {
+    font-family: 'PrimeIcons';
+    content: '\e987'; /* Unicode for pi-exclamation-circle */
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
