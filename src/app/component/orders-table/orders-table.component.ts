@@ -109,8 +109,8 @@ orderCounts!: any
 selectedSpecimen!: Specimens
 selectedProvider!: any
 selectedLocation!: any
-selectedLookback!: LookOptions
-selectedLookforward!: LookOptions
+selectedLookback: LookOptions = {label: "Months", value: 'M'}
+selectedLookforward: LookOptions = {label: "Months", value: 'M'}
 
 typicalLab: boolean = true;
 
