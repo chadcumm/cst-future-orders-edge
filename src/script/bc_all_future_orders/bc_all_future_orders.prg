@@ -127,6 +127,9 @@ record rCustom (
 	1 order_type					= i4
 	1 order_type_meaning			= vc
 	1 selected_catalog_type			= f8
+	1 content_service_url			= vc
+	1 webshere_host					= vc
+	1 fully_qualified_domain		= vc
     1 ord_location_cnt				= i4
     1 ord_location_list[*]
      2 label						= vc
@@ -514,6 +517,58 @@ head e.encntr_id
 	endif
 	
 with nocounter
+
+; Collect the content service URL for dynamic asset paths
+select into "nl:"
+from dm_info d
+plan d
+    where d.info_domain = "INS"
+    and d.info_name = "CONTENT_SERVICE_URL"
+head report
+    rCustom->content_service_url = trim(d.info_char)
+with counter
+
+; Parse the content_service_url to extract host and domain
+if (rCustom->content_service_url != "")
+    declare vURL = vc with noconstant(trim(rCustom->content_service_url)), protect
+    declare nProtocolLen = i4 with noconstant(0), protect
+    declare nStart = i4 with noconstant(0), protect
+    declare nEnd = i4 with noconstant(0), protect
+    declare nLastSlash = i4 with noconstant(0), protect
+
+    ; Find end of 'http://' or 'https://'
+    if (substring(1,8,vURL) = "https://")
+        set nProtocolLen = 8
+    elseif (substring(1,7,vURL) = "http://")
+        set nProtocolLen = 7
+    else
+        set nProtocolLen = 0
+    endif
+
+    ; Host starts after the protocol
+    set nStart = nProtocolLen + 1
+
+    ; Find the next '/' after the protocol to mark end of host
+    set nEnd = findstring("/", vURL, nStart)
+    if (nEnd > 0)
+        set rCustom->webshere_host = substring(1, nEnd - 1, vURL)
+    else
+        set rCustom->webshere_host = vURL
+    endif
+
+    ; Extract fully qualified domain (last path segment)
+    set nLastSlash = nEnd
+    while (findstring("/", vURL, nLastSlash+1) > 0)
+        set nLastSlash = findstring("/", vURL, nLastSlash+1)
+    endwhile
+    if (nLastSlash > 0 and nLastSlash < textlen(vURL))
+        set rCustom->fully_qualified_domain = substring(nLastSlash+1, textlen(vURL)-nLastSlash, vURL)
+    endif
+endif
+
+call echo(build2("content_service_url=",rCustom->content_service_url))
+call echo(build2("webshere_host=",rCustom->webshere_host))
+call echo(build2("fully_qualified_domain=",rCustom->fully_qualified_domain))
 
 call echo(build2("person_id=",person_id)) 
 call echo(build2("encntr_id=",encntr_id)) 

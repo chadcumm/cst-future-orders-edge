@@ -112,8 +112,28 @@ export class FutureorderService {
     public get supportMessage(): string {
       return this.futureOrderService.get('futureorders').supportMessage
     }
-    
-    //return this.futureOrderService.get('futureorders').supportToolInd
-    //return(this.orderJSON[0].orderList)
+
+    // Returns the content service URL from CCL (dm_info CONTENT_SERVICE_URL)
+    public get contentServiceUrl(): string {
+      return this.futureOrderService.get('futureorders')?.contentServiceUrl || '';
+    }
+
+    // Returns the webshere host (e.g., https://lb-wodr-phsacd-nonprod-0.phsacd.ohaihs.com)
+    public get webshereHost(): string {
+      return this.futureOrderService.get('futureorders')?.webshereHost || '';
+    }
+
+    // Returns the fully qualified domain (e.g., e0783.phsacd.ohaihs.com)
+    public get fullyQualifiedDomain(): string {
+      return this.futureOrderService.get('futureorders')?.fullyQualifiedDomain || '';
+    }
+
+    // Computed: base URL for assets in mpage-content
+    public get assetBaseUrl(): string {
+      if (this.webshereHost && this.fullyQualifiedDomain) {
+        return `${this.webshereHost}/mpage-content/${this.fullyQualifiedDomain}/custom_mpage_content/cst-future-orders-edge/assets`;
+      }
+      return '';
+    }
 
 }

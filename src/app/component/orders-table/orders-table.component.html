@@ -163,11 +163,11 @@ let-columns="columns"
     >
       <img *ngIf="i == 0 && rowData.powerplan.ind === 1"
         class="icon"
-        src="http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/powerplan.png"
+        [src]="futureOrderDS.assetBaseUrl + '/powerplan.png'"
       />
       <img *ngIf="i == 0 && rowData.orderCommentInd === 1"
         class="icon"
-        src="http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/custom_mpage_content/cst-future-orders-edge/assets/comment.gif"
+        [src]="futureOrderDS.assetBaseUrl + '/comment.gif'"
       />
     </span>
     <!--need to move lab note column-->

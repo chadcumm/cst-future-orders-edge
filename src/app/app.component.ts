@@ -5,9 +5,6 @@ import { CUSTOM_DATE_FORMATS } from './app.module';
 import { ButtonModule } from 'primeng/button';
 import { FutureorderService } from './service/futureorder.service';
 
-
-//http://phsacdeanp.cerncd.com/mpage-content/b0783.phsa_cd.cerncd.com/
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
